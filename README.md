@@ -14,14 +14,15 @@ The Cliqit DeepLink SDK provides a simple way to handle deep links, deferred dee
 
 ### 1. Add Repository
 
-Ensure `mavenLocal()` or your hosted Maven repository is added to your `settings.gradle.kts` (or root `build.gradle.kts`):
 
 ```kotlin
 dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        mavenLocal() // Only if testing locally
+        maven {
+            url = uri("https://jitpack.io")
+        }
     }
 }
 ```
@@ -32,7 +33,7 @@ Add the SDK to your app-level `build.gradle.kts`:
 
 ```kotlin
 dependencies {
-    implementation("com.cliqit:deeplink-sdk:1.0.0")
+    implementation("com.github.mindrootstech:cliqit_android_sdk:v1.0.3")
 }
 ```
 
@@ -59,6 +60,8 @@ class MyApplication : Application() {
                 // Handle navigation or logic based on data
             }
         }
+
+        CliqitSDK.handleIntent(intent, this)
     }
 }
 ```
@@ -75,6 +78,8 @@ override fun onCreate(savedInstanceState: Bundle?) {
 
 override fun onNewIntent(intent: Intent) {
     super.onNewIntent(intent)
+    setIntent(intent)
+    // Handle the new intent
     CliqitSDK.handleIntent(intent, this)
 }
 ```

@@ -161,15 +161,11 @@ object CliqitSDK {
                 client.newCall(request).execute().use { response ->
                     val responseBody = response.body?.string()
                     if (isDebuggable) Log.e(TAG, "API GET Response [${response.code}] from $endpoint: $responseBody")
-                    if (response.isSuccessful) {
-                        responseBody
-                    } else {
-                        null
-                    }
+                    responseBody
                 }
             } catch (e: Exception) {
                 if (isDebuggable) Log.e(TAG, "API GET Error for $endpoint", e)
-                null
+                e.message
             }
         }
     }
