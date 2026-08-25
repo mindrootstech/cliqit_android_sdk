@@ -21,11 +21,10 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import kotlin.coroutines.resume
 import androidx.core.content.edit
-import kotlin.toString
 
 
-object DeepLinkSDK {
-    private const val TAG = "DeepLinkSDK"
+object CliqitSDK {
+    private const val TAG = "cliqit"
     private var apiKey: String? = null
     private var initialized = false
     private var isDebuggable = false
@@ -199,8 +198,8 @@ object DeepLinkSDK {
             prefs.edit { putBoolean(PREF_SDK_INSTALLED, true) }
         }else if(uri != null){
             isDeferred = false
-            val deepLinkData = DeepLinkData.fromUri(uri)
-            val slug = deepLinkData.path;
+            val dataModel = DataModel.fromUri(uri)
+            val slug = dataModel.path;
 
             responseJson = apiGet(ApiConstants.LINK+"/$slug", null)
         }else{

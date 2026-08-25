@@ -2,21 +2,21 @@ package com.cliqit.android.sdk
 
 import android.net.Uri
 
-data class DeepLinkData(
+data class DataModel(
     val url: String,
     val subPath: String,
     val path: String,
     val parameters: Map<String, String>
 ) {
     companion object {
-        fun fromUri(uri: Uri): DeepLinkData {
+        fun fromUri(uri: Uri): DataModel {
             val parameters = mutableMapOf<String, String>()
             uri.queryParameterNames.forEach { name ->
                 uri.getQueryParameter(name)?.let { value ->
                     parameters[name] = value
                 }
             }
-            return DeepLinkData(
+            return DataModel(
                 url = uri.toString(),
                 subPath = uri.path ?: "",
                 path = uri.lastPathSegment ?: "",
