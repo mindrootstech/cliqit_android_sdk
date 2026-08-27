@@ -52,7 +52,7 @@ afterEvaluate {
             register<MavenPublication>("release") {
                 from(components["release"])
                 groupId = "com.cliqit"
-                artifactId = "deeplink-sdk"
+                artifactId = "cliqit_android_sdk"
                 version = "1.0.5" // <--- Update this to match your tag
             }
         }
