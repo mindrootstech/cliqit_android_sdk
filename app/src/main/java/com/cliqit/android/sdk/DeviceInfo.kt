@@ -38,7 +38,6 @@ class DeviceInfo {
             "appOpenAt" to System.currentTimeMillis(),
             "appVersion" to (context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: "unknown"),
             "androidInstallReferrer" to installReferrer,
-            "clipboardToken" to getClipboardContent(ctx),
             "clickSessionId" to UUID.randomUUID().toString(),
             "batteryLevel" to getBatteryLevel(ctx),
             "batteryCharging" to isBatteryCharging(ctx),
@@ -76,9 +75,7 @@ class DeviceInfo {
 
     fun getPixelRatio(context: Context): Float = context.resources.displayMetrics.density
 
-    fun getToken(context: Context): String? {
-        return getClipboardContent(context)
-    }
+
     fun getAppSignature(context: Context): String? {
         return try {
             val packageInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
@@ -144,16 +141,7 @@ class DeviceInfo {
         }
     }
 
-    private fun getClipboardContent(context: Context): String? {
-        return try {
-            val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
-            if (clipboard.hasPrimaryClip()) {
-                clipboard.primaryClip?.getItemAt(0)?.text?.toString()
-            } else null
-        } catch (e: Exception) {
-            null
-        }
-    }
+
 
     private fun getBatteryLevel(context: Context): Float {
         val intent = context.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
