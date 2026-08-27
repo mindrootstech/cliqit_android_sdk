@@ -53,7 +53,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.cliqit"
                 artifactId = "deeplink-sdk"
-                version = "1.0.0"
+                version = "1.0.5" // <--- Update this to match your tag
             }
         }
     }
